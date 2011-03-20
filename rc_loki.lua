@@ -1,4 +1,6 @@
--- Standard awes in *.jpg; do convert $i -resize 1280x1024\! 1280/$i; done me library
+require("vicious")
+
+-- Standard awesome library
 require("awful")
 require("awful.autofocus")
 require("awful.rules")
@@ -6,21 +8,15 @@ require("awful.rules")
 require("beautiful")
 -- Notification library
 require("naughty")
-require("vicious")
--- Load Debian menu entries
-require("debian.menu")
 
-   -- {{{ Variable definitions
-   -- Themes define colours, icons, and wallpapers
---  beautiful.init("/usr/share/awesome/themes/rootman/theme.lua")
-    -- Load wallpaper Xscreensaver
--- beautiful.init(".config/awesome/xscreensaver_wallpaper.lua") 
-   -- Load wallpaper imaes rotate
-  beautiful.init(".config/awesome/randompic_wallpapper.lua")
+-- {{{ Variable definitions
+-- Themes define colours, icons, and wallpapers
+beautiful.init("/home/loki/.awesome/themes/default/theme.lua")
+
 -- This is used later as the default terminal and editor to run.
-terminal = "gnome-terminal"
-editor = os.getenv("EDITOR") or "editor"
-editor_cmd = terminal .. " -e " .. editor
+terminal = "xterm -bg black -fg yellow"
+editor = os.getenv("EDITOR") or " -e vim"
+editor_cmd = terminal .. " -e vim " -- .. editor
 
 -- Default modkey.
 -- Usually, Mod4 is the key with a logo between Control and Alt.
@@ -35,10 +31,10 @@ layouts =
     awful.layout.suit.floating,
     awful.layout.suit.tile,
     awful.layout.suit.tile.left,
-    awful.layout.suit.tile.horizontal,
+    awful.layout.suit.tile.bottom,
     awful.layout.suit.tile.top,
     awful.layout.suit.fair,
-    awful.layout.suit.tile.horizontal,
+    awful.layout.suit.fair.horizontal,
     awful.layout.suit.spiral,
     awful.layout.suit.spiral.dwindle,
     awful.layout.suit.max,
@@ -47,12 +43,12 @@ layouts =
 }
 -- }}}
 
--- {{{ Tags
--- Define a tag table which hold all screen tags.
+ -- {{{ Tags
+ -- Define a tag table which will hold all screen tags.
  tags = {
-   names  = { "main", "www", "sec", "htc", "system", "vm", "vm-dev", "mail", "im" },
-   layout = { layouts[3], layouts[4], layouts[2], layouts[2], layouts[3],
-              layouts[3], layouts[3], layouts[4], layouts[3]
+   names  = { "MAIN", "SEC", "NET", "H.T.C", "CHAT", "MAIL", "DIV", "SYS0", "SYS1" },
+   layout = { layouts[3], layouts[3], layouts[1], layouts[3], layouts[3],
+              layouts[3], layouts[3], layouts[3], layouts[3]
  }}
  for s = 1, screen.count() do
      -- Each screen has its own tag table.
@@ -61,50 +57,116 @@ layouts =
  -- }}}
 
 
-
-
 -- {{{ Menu
 -- Create a laucher widget and a main menu
 myawesomemenu = {
-   { "manual", terminal .. " -e man awesome" },
-  { "edit config", editor_cmd .. " " .. awful.util.getdir("config") .. "/rc.lua" },
-   { "restart", awesome.restart },
-   { "quit", awesome.quit }
+	{ "manual", terminal .. " -e man awesome" },
+        { "edit config", editor_cmd .. " " .. awful.util.getdir("config") .. "/rc.lua" },
+        { "restart", awesome.restart },
+        { "quit", awesome.quit }
 }
 
-mymainmenu = awful.menu({ items = { { "awesome", myawesomemenu, beautiful.awesome_icon },
-                                    { "Debian", debian.menu.Debian_menu.Debian },
-                                    { "open terminal", terminal }
-                                  }
-                        })
+mymedia = {
+	{ "DeaDBeaF (Music)", "deadbeef" },
+	{ "VLC", "vlc" },
+	{ "NVLC", "nvlc" },
+	{ "", "" },
+	{ "", "" }
+}
+
+myartmenu = {
+	{ "GIMP", "gimp" },
+	{ "Geeqie (Pictures)", "geeqie" },
+	{ "Gvim", "gvim" },
+	{ "", "" }
+}
+
+mycomm = {
+	{ "Firefox", "firefox" },
+	{ "Evolution", "evolution" },
+	{ "Pidgin", "pidgin" },
+	{ "Skype", "skype"  },
+	{ "QBittorrent", "qbittorrent" },
+	{ "", "" }
+}
+
+mygames = {
+	{ "XMahjongg", "xmahjongg" },
+	{ "Galaxies(Puzzle)", "galaxies" },
+	{ "Dominosa(Puzzle)", "dominosa" },
+	{ "Fifteen(Puzzle)", "fifteen" },
+	{ "Blackbox(Puzzle)", "puzzles-blackbox" },
+	{ "Cube(Puzzle)", "puzzles-cube" },
+	{ "Net(Puzzle)", "puzzles-net" },
+	{ "Singles(Puzzle)", "singles" },
+	{ "Frozen-Bubble", "frozen-bubble --fullscreen" },
+	{ "XMoto", "xmoto" },
+	{ "", "" },
+	{ "", "" },
+	{ "", "" },
+	{ "", "" }
+}
+
+mysystem = {
+	{ "Midnight Commander", terminal .. " -e mc" },
+	{ "Qalculate", "qalculate" },
+	{ "Thunar", "thunar" },
+	{ "FileZilla", "filezilla" },
+	{ "Alsa Mixer", terminal .. "-e alsamixer"},
+	{ "Gnome-Sound-Recorder", "gnome-sound-recorder" },
+	{ "Brasero", "brasero" },
+	{ "LUA", "lua" },
+	{ "Linguist", "linguist" },
+	{ "CHEESE", "cheese" },
+	{ "", "" },
+	{ "Terminal", terminal }
+}
+
+mymainmenu = awful.menu({ items = { 
+				{ "awesome", myawesomemenu, beautiful.awesome_icon },
+        			{ "Media", mymedia },
+        			{ "Art", myartmenu },
+        			{ "Communication", mycomm },
+        			{ "Games", mygames },
+        			{ "SYSTEM", mysystem },
+				{ "Log out", "/home/loki/.bin/shutdown_dialog.sh" }
+}
+})
 
 mylauncher = awful.widget.launcher({ image = image(beautiful.awesome_icon),
                                      menu = mymainmenu })
 -- }}}
 
 -- {{{ Wibox
--- Create a textclock widget
--- Network usage widget
---Initialize widget
-netwidget = widget({ type = "textbox" })
--- Register widget
-
--- vicious.register(netwidget, vicious.widgets.net, '<span color="#CC9393">${eth0 down_kb}</span> <span color="#7F9F7F">${eth0 up_kb}</span>', 3) 
-vicious.register(netwidget, vicious.widgets.net, '<span color="#CC9393">${eth0 down_kb}</span> <span color="#7F9F7F">${eth0 up_kb}</span>', 3)
+--
+-- ANFANG  MEINE --
 
 -- Initialize widget
-memwidget = awful.widget.progressbar()
--- Progressbar properties
-memwidget:set_width(8)
-memwidget:set_height(10)
-memwidget:set_vertical(true)
-memwidget:set_background_color("#494B4F")
-memwidget:set_border_color(nil)
-memwidget:set_color("#AECF96")
-memwidget:set_gradient_colors({ "#AECF96", "#88A175", "#FF5656" })
+memwidget = widget({ type = "textbox" })
 -- Register widget
-vicious.register(memwidget, vicious.widgets.mem, "$1", 13)
--- Acpitool-based battery widget
+vicious.register(memwidget, vicious.widgets.mem, '<span color="#ff9933">{$1% ($2MB/$3MB)}</span>', 13)
+
+-- Initialize widget
+clockwidget = widget({ type = "textbox" })
+-- Register widget
+vicious.register(clockwidget, vicious.widgets.date, '<span color="#ffff00">{%a-%d-%b-%Y}{%H:%M}</span>')
+
+-- Initialize widget
+cpuwidget = widget({ type = "textbox" })
+-- Register widget
+vicious.register(cpuwidget, vicious.widgets.cpu, '<span color="#ff0000">{$1%}</span>')
+
+--SEPARATOREN--
+--separatorR = widget({ type = "textbox" })
+--separatorR.text  ='<span color="#33ff00">:</span>'
+
+--separatorM = widget({ type = "textbox" })
+--separatorM.text  ='<span color="#ffff00">:</span>'
+
+--separatorL = widget({ type = "textbox" })
+--separatorL.text  ='<span color="#ff0000">:</span>'
+
+--BATTERY--
 mybattmon = widget({ type = "textbox", name = "mybattmon", align = "right" })
 function battery_status ()
     local output={} --output buffer
@@ -129,8 +191,7 @@ function battery_status ()
         end --even more data unavailable: we might be getting an unexpected output format, so let's just skip this line.
         line=fd:read() --read next line
     end
-    return table.concat(output," ") 
--- FIXME: better separation for several batteries. maybe a pipe?
+    return table.concat(output," ") --FIXME: better separation for several batteries. maybe a pipe?
 end
 mybattmon.text = " " .. battery_status() .. " "
 my_battmon_timer=timer({timeout=30})
@@ -139,37 +200,13 @@ my_battmon_timer:add_signal("timeout", function()
     mybattmon.text = " " .. battery_status() .. " "
 end)
 my_battmon_timer:start()
--- end acpitool battery widget
+--BATTERY END--
 
-
-
--- if ${eth0 false}
---	then ${wlan0 false}
---	then ${ppp0 false}
-
-
--- Initialize widget
-cpuwidget = awful.widget.graph()
--- Graph properties
-cpuwidget:set_width(50)
-cpuwidget:set_background_color("#494B4F")
-cpuwidget:set_color("#FF5656")
-cpuwidget:set_gradient_colors({ "#FF5656", "#88A175", "#AECF96" })
--- Register widget
-vicious.register(cpuwidget, vicious.widgets.cpu, "$1")
-
-separator = widget({ type = "textbox" })
- separator.text  = " :: "
-
-
-mytextclock = awful.widget.textclock({ align = "right" })
--- mytextclock:set_color("#AECF96")
--- mytextclock:set_background_color("#A66F96")
--- mytextclock:set_gradient_colors("#AECF96")
-
+-- ENDE  MEINE --
+--
+--
 -- Create a systray
 mysystray = widget({ type = "systray" })
-
 -- Create a wibox for each screen and add it
 mywibox = {}
 mypromptbox = {}
@@ -238,15 +275,13 @@ for s = 1, screen.count() do
             mypromptbox[s],
             layout = awful.widget.layout.horizontal.leftright
         },
-        mylayoutbox[s],
-        mytextclock,
+	volwidget,
 	mybattmon,
-	separator,
-	netwidget,
-	cpuwidget,
+	mylayoutbox[s],
+	clockwidget,
 	memwidget,
-	separator,
-        s == 1 and mysystray or nil,
+	cpuwidget,
+	s == 1 and mysystray or nil,
         mytasklist[s],
         layout = awful.widget.layout.horizontal.rightleft
     }
@@ -263,10 +298,6 @@ root.buttons(awful.util.table.join(
 
 -- {{{ Key bindings
 globalkeys = awful.util.table.join(
-    awful.key({ "Mod4", "Control" },"l", 
-	function ()
-		awful.util.spawn("xscrrensaver-command -lock") 
-	end),
     awful.key({ modkey,           }, "Left",   awful.tag.viewprev       ),
     awful.key({ modkey,           }, "Right",  awful.tag.viewnext       ),
     awful.key({ modkey,           }, "Escape", awful.tag.history.restore),
@@ -281,7 +312,7 @@ globalkeys = awful.util.table.join(
             awful.client.focus.byidx(-1)
             if client.focus then client.focus:raise() end
         end),
-    awful.key({ modkey,           }, "w", function () mymainmenu:show(true)        end),
+    awful.key({ modkey,           }, "w", function () mymainmenu:show({keygrabber=true}) end),
 
     -- Layout manipulation
     awful.key({ modkey, "Shift"   }, "j", function () awful.client.swap.byidx(  1)    end),
@@ -330,6 +361,7 @@ clientkeys = awful.util.table.join(
     awful.key({ modkey, "Control" }, "Return", function (c) c:swap(awful.client.getmaster()) end),
     awful.key({ modkey,           }, "o",      awful.client.movetoscreen                        ),
     awful.key({ modkey, "Shift"   }, "r",      function (c) c:redraw()                       end),
+    awful.key({ modkey,           }, "t",      function (c) c.ontop = not c.ontop            end),
     awful.key({ modkey,           }, "n",      function (c) c.minimized = not c.minimized    end),
     awful.key({ modkey,           }, "m",
         function (c)
@@ -401,13 +433,35 @@ awful.rules.rules = {
       properties = { floating = true } },
     { rule = { class = "gimp" },
       properties = { floating = true } },
-    -- Set Firefox to always map on tags number 2 of screen 1.
-  { rule = { class = "Evolution" },
-	  properties = { tag = tags[1][8] } },
-  { rule = { class = "Pidgin" },
-	  properties = { tag = tags[1][9] } },
-  { rule = { class = "Firefox" },
-	  properties = { tag = tags[1][2] } },
+     { rule = { class = "Namoroka" },
+      properties = { tag = tags[1][3] } },
+    
+    { rule = { class = "Pidgin" },
+      properties = { tag = tags[1][5] } },
+   
+    { rule = { class = "Deadbeef" },
+      properties = { tag = tags[1][4] } },
+   
+    { rule = { class = "Evolution" },
+      properties = { tag = tags[1][6] } },
+   
+    { rule = { class = "Gimp" },
+      properties = { tag = tags[1][7] } },
+   
+    { rule = { class = "MPlayer" },
+      properties = { tag = tags[1][4] } },
+   
+    { rule = { class = "Geeqie" },
+      properties = { tag = tags[1][7] } },
+   
+    { rule = { class = "Skype" },
+      properties = { tag = tags[1][5] } },
+
+    { rule = { class = "Thunar" },
+      properties = { tag = tags[1][9] } },
+   
+    { rule = { class = "Cheese" },
+      properties = { tag = tags[1][7] } },
 
 }
 -- }}}
@@ -431,7 +485,6 @@ client.add_signal("manage", function (c, startup)
         -- i.e. put it at the end of others instead of setting it master.
         -- awful.client.setslave(c)
 
-
         -- Put windows in a smart way, only if they does not set an initial position.
         if not c.size_hints.user_position and not c.size_hints.program_position then
             awful.placement.no_overlap(c)
@@ -440,8 +493,9 @@ client.add_signal("manage", function (c, startup)
     end
 end)
 
-client.add_signal("focus", function(c) c.border_color = beautiful.border_focus end)
-client.add_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
+client.add_signal("focus", function(c) c.border_color = beautiful.border_focus c.opacity = 1.0 end)
+
+client.add_signal("unfocus", function(c) c.border_color = beautiful.border_normal c.opacity = 0.7 end)
 -- }}}
 --#####################################
 --############ Autostart ##############
@@ -461,56 +515,17 @@ end
 -- FUNCTION ENDE
 -- ### APPS ###
 run_once("xscreensaver","-no-splash")
-run_once("pidgin",nil,1)
+run_once("pidgin")
 run_once("firefox-bin")
+run_once("firefox")
 run_once("evolution")
-run_once("blueman-applet")
-run_once("nm-applet")
 run_once("keepassx")
-run_once("/usr/bin/perl /usr/bin/shutter","--min_at_startup",nil,1)
+run_once("deadbeef")
+run_once("thunar")
+--run_once("blueman-applet")
+os.execute("nm-applet --sm-disable &")
+
 --#####################################
 --######ENDE## Autostart ##ENDE########
 --#####################################
-
-
-
--- ################################
---   CHANGE WALLPAPER
--- ################################
---  seed and "pop a few"
- math.randomseed( os.time())
- for i=1,1000 do tmp=math.random(0,1000) end
- x = 0
--- ######################################
--- Change Wallpaper randomly after time:
--- setup the timer
- mytimer = timer { timeout = x }
-mytimer:add_signal("timeout", function()
-
-
---  -- tell awsetbg to randomly choose a wallpaper from your wallpaper directory
-   os.execute("awsetbg -f -R /usr/share/wallpapers/1280&")
-
-
--- os.execute("awsetbg -f /usr/share/wallpapers/25_1280x1024.jpg")
-  -- stop the timer (we don't need multiple instances running at the same time)
- mytimer:stop()
-
-
-  -- define the interval in which the next wallpaper change should occur in seconds
-  -- (in this case anytime between 10 and 20 minutes)
-  x = math.random( 5, 20)
-
-  --restart the timer
- mytimer.timeout = x
- mytimer:start()
-end)
--- initial start when rc.lua is first run
-mytimer:start()
-
-
--- ###################
---  END XSCREENSAVER
-
--- ###################
 
