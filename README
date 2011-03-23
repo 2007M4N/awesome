@@ -1,0 +1,47 @@
+About
+=====
+
+This is the rc.lua my main config script for the awesome wm
+
+Features
+========
+autostart application with runonce,
+integrated shutdown menu,
+randowm wallpaper effect,
+different layout setup for each tag,
+
+Widgets
+=======
+Network usage widget,
+Memory widget,
+Acpitool based battery widget,
+Cpu widget,
+
+Requirements
+============
+xscreensaver
+slock
+acpitool
+
+Awsome version
+==============
+awesome v3.4.3 (Engines)
+ - Build: Feb  2 2010 06:11:19 for x86_64 by gcc version 4.4.3 (buildd@yellow)
+ - D-Bus support: x
+
+Theme
+=====
+default
+
+Other Files
+===========
+
+Notes
+====
+rc.lua: The Failsafe load, try to load rootman_.lua else load default config
+
+Todo & Errors
+=============
+xcompmgr is disabled, because of prblems with the random wallpaper
+graphical CPU widget is disabled because of problems with multi screen
+Random wallpapers don't work with multible screens
