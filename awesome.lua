@@ -25,7 +25,7 @@ require ("vicious")
 --
 -- {{{ Variable definitions
 -- Themes define colours, icons, and wallpapers
-beautiful.init("/home/rootman/.config/awesome/themes/default/theme.lua")
+beautiful.init("/home/rootman/.config/awesome/themes/rootman/theme.lua")
 -- This is used later as the default terminal and editor to run.
 terminal = "urxvt"
 editor = os.getenv("EDITOR") or "e- gvim"
