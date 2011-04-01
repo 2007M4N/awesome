@@ -1,5 +1,3 @@
-require("vicious")
-
 -- Standard awesome library
 require("awful")
 require("awful.autofocus")
@@ -11,12 +9,12 @@ require("naughty")
 
 -- {{{ Variable definitions
 -- Themes define colours, icons, and wallpapers
-beautiful.init("/home/loki/.awesome/themes/default/theme.lua")
+beautiful.init("/usr/share/awesome/themes/default/theme.lua")
 
 -- This is used later as the default terminal and editor to run.
-terminal = "xterm -bg black -fg yellow"
-editor = os.getenv("EDITOR") or " -e vim"
-editor_cmd = terminal .. " -e vim " -- .. editor
+terminal = "xterm"
+editor = os.getenv("EDITOR") or "nano"
+editor_cmd = terminal .. " -e " .. editor
 
 -- Default modkey.
 -- Usually, Mod4 is the key with a logo between Control and Alt.
@@ -43,170 +41,40 @@ layouts =
 }
 -- }}}
 
- -- {{{ Tags
- -- Define a tag table which will hold all screen tags.
- tags = {
-   names  = { "MAIN", "SEC", "NET", "H.T.C", "CHAT", "MAIL", "DIV", "SYS0", "SYS1" },
-   layout = { layouts[3], layouts[3], layouts[1], layouts[3], layouts[3],
-              layouts[3], layouts[3], layouts[3], layouts[3]
- }}
- for s = 1, screen.count() do
-     -- Each screen has its own tag table.
-     tags[s] = awful.tag(tags.names, s, tags.layout)
- end
- -- }}}
-
+-- {{{ Tags
+-- Define a tag table which hold all screen tags.
+tags = {}
+for s = 1, screen.count() do
+    -- Each screen has its own tag table.
+    tags[s] = awful.tag({ 1, 2, 3, 4, 5, 6, 7, 8, 9 }, s, layouts[1])
+end
+-- }}}
 
 -- {{{ Menu
 -- Create a laucher widget and a main menu
 myawesomemenu = {
-	{ "manual", terminal .. " -e man awesome" },
-        { "edit config", editor_cmd .. " " .. awful.util.getdir("config") .. "/rc.lua" },
-        { "restart", awesome.restart },
-        { "quit", awesome.quit }
+   { "manual", terminal .. " -e man awesome" },
+   { "edit config", editor_cmd .. " " .. awful.util.getdir("config") .. "/rc.lua" },
+   { "restart", awesome.restart },
+   { "quit", awesome.quit }
 }
 
-mymedia = {
-	{ "DeaDBeaF (Music)", "deadbeef" },
-	{ "VLC", "vlc" },
-	{ "NVLC", "nvlc" },
-	{ "", "" },
-	{ "", "" }
-}
-
-myartmenu = {
-	{ "GIMP", "gimp" },
-	{ "Geeqie (Pictures)", "geeqie" },
-	{ "Gvim", "gvim" },
-	{ "", "" }
-}
-
-mycomm = {
-	{ "Firefox", "firefox" },
-	{ "Evolution", "evolution" },
-	{ "Pidgin", "pidgin" },
-	{ "Skype", "skype"  },
-	{ "QBittorrent", "qbittorrent" },
-	{ "", "" }
-}
-
-mygames = {
-	{ "XMahjongg", "xmahjongg" },
-	{ "Galaxies(Puzzle)", "galaxies" },
-	{ "Dominosa(Puzzle)", "dominosa" },
-	{ "Fifteen(Puzzle)", "fifteen" },
-	{ "Blackbox(Puzzle)", "puzzles-blackbox" },
-	{ "Cube(Puzzle)", "puzzles-cube" },
-	{ "Net(Puzzle)", "puzzles-net" },
-	{ "Singles(Puzzle)", "singles" },
-	{ "Frozen-Bubble", "frozen-bubble --fullscreen" },
-	{ "XMoto", "xmoto" },
-	{ "", "" },
-	{ "", "" },
-	{ "", "" },
-	{ "", "" }
-}
-
-mysystem = {
-	{ "Midnight Commander", terminal .. " -e mc" },
-	{ "Qalculate", "qalculate" },
-	{ "Thunar", "thunar" },
-	{ "FileZilla", "filezilla" },
-	{ "Alsa Mixer", terminal .. "-e alsamixer"},
-	{ "Gnome-Sound-Recorder", "gnome-sound-recorder" },
-	{ "Brasero", "brasero" },
-	{ "LUA", "lua" },
-	{ "Linguist", "linguist" },
-	{ "CHEESE", "cheese" },
-	{ "", "" },
-	{ "Terminal", terminal }
-}
-
-mymainmenu = awful.menu({ items = { 
-				{ "awesome", myawesomemenu, beautiful.awesome_icon },
-        			{ "Media", mymedia },
-        			{ "Art", myartmenu },
-        			{ "Communication", mycomm },
-        			{ "Games", mygames },
-        			{ "SYSTEM", mysystem },
-				{ "Log out", "/home/loki/.bin/shutdown_dialog.sh" }
-}
-})
+mymainmenu = awful.menu({ items = { { "awesome", myawesomemenu, beautiful.awesome_icon },
+                                    { "open terminal", terminal }
+                                  }
+                        })
 
 mylauncher = awful.widget.launcher({ image = image(beautiful.awesome_icon),
                                      menu = mymainmenu })
 -- }}}
 
 -- {{{ Wibox
---
--- ANFANG  MEINE --
+-- Create a textclock widget
+mytextclock = awful.widget.textclock({ align = "right" })
 
--- Initialize widget
-memwidget = widget({ type = "textbox" })
--- Register widget
-vicious.register(memwidget, vicious.widgets.mem, '<span color="#ff9933">{$1% ($2MB/$3MB)}</span>', 13)
-
--- Initialize widget
-clockwidget = widget({ type = "textbox" })
--- Register widget
-vicious.register(clockwidget, vicious.widgets.date, '<span color="#ffff00">{%a-%d-%b-%Y}{%H:%M}</span>')
-
--- Initialize widget
-cpuwidget = widget({ type = "textbox" })
--- Register widget
-vicious.register(cpuwidget, vicious.widgets.cpu, '<span color="#ff0000">{$1%}</span>')
-
---SEPARATOREN--
---separatorR = widget({ type = "textbox" })
---separatorR.text  ='<span color="#33ff00">:</span>'
-
---separatorM = widget({ type = "textbox" })
---separatorM.text  ='<span color="#ffff00">:</span>'
-
---separatorL = widget({ type = "textbox" })
---separatorL.text  ='<span color="#ff0000">:</span>'
-
---BATTERY--
-mybattmon = widget({ type = "textbox", name = "mybattmon", align = "right" })
-function battery_status ()
-    local output={} --output buffer
-    local fd=io.popen("acpitool -b", "r") --list present batteries
-    local line=fd:read()
-    while line do --there might be several batteries.
-        local battery_num = string.match(line, "Battery \#(%d+)")
-        local battery_load = string.match(line, " (%d*\.%d+)%%")
-        local time_rem = string.match(line, "(%d+\:%d+)\:%d+")
-	local discharging
-	if string.match(line, "discharging")=="discharging" then --discharging: always red
-		discharging="<span color=\"#CC7777\">"
-	elseif tonumber(battery_load)>85 then --almost charged
-		discharging="<span color=\"#77CC77\">"
-	else --charging
-		discharging="<span color=\"#CCCC77\">"
-	end
-        if battery_num and battery_load and time_rem then
-            table.insert(output,discharging.."BAT#"..battery_num.." "..battery_load.."%% "..time_rem.."</span>")
-        elseif battery_num and battery_load then --remaining time unavailable
-            table.insert(output,discharging.."BAT#"..battery_num.." "..battery_load.."%%</span>")
-        end --even more data unavailable: we might be getting an unexpected output format, so let's just skip this line.
-        line=fd:read() --read next line
-    end
-    return table.concat(output," ") --FIXME: better separation for several batteries. maybe a pipe?
-end
-mybattmon.text = " " .. battery_status() .. " "
-my_battmon_timer=timer({timeout=30})
-my_battmon_timer:add_signal("timeout", function()
-    --mytextbox.text = " " .. os.date() .. " "
-    mybattmon.text = " " .. battery_status() .. " "
-end)
-my_battmon_timer:start()
---BATTERY END--
-
--- ENDE  MEINE --
---
---
 -- Create a systray
 mysystray = widget({ type = "systray" })
+
 -- Create a wibox for each screen and add it
 mywibox = {}
 mypromptbox = {}
@@ -275,13 +143,9 @@ for s = 1, screen.count() do
             mypromptbox[s],
             layout = awful.widget.layout.horizontal.leftright
         },
-	volwidget,
-	mybattmon,
-	mylayoutbox[s],
-	clockwidget,
-	memwidget,
-	cpuwidget,
-	s == 1 and mysystray or nil,
+        mylayoutbox[s],
+        mytextclock,
+        s == 1 and mysystray or nil,
         mytasklist[s],
         layout = awful.widget.layout.horizontal.rightleft
     }
@@ -433,36 +297,9 @@ awful.rules.rules = {
       properties = { floating = true } },
     { rule = { class = "gimp" },
       properties = { floating = true } },
-     { rule = { class = "Namoroka" },
-      properties = { tag = tags[1][3] } },
-    
-    { rule = { class = "Pidgin" },
-      properties = { tag = tags[1][5] } },
-   
-    { rule = { class = "Deadbeef" },
-      properties = { tag = tags[1][4] } },
-   
-    { rule = { class = "Evolution" },
-      properties = { tag = tags[1][6] } },
-   
-    { rule = { class = "Gimp" },
-      properties = { tag = tags[1][7] } },
-   
-    { rule = { class = "MPlayer" },
-      properties = { tag = tags[1][4] } },
-   
-    { rule = { class = "Geeqie" },
-      properties = { tag = tags[1][7] } },
-   
-    { rule = { class = "Skype" },
-      properties = { tag = tags[1][5] } },
-
-    { rule = { class = "Thunar" },
-      properties = { tag = tags[1][9] } },
-   
-    { rule = { class = "Cheese" },
-      properties = { tag = tags[1][7] } },
-
+    -- Set Firefox to always map on tags number 2 of screen 1.
+    -- { rule = { class = "Firefox" },
+    --   properties = { tag = tags[1][2] } },
 }
 -- }}}
 
@@ -493,39 +330,6 @@ client.add_signal("manage", function (c, startup)
     end
 end)
 
-client.add_signal("focus", function(c) c.border_color = beautiful.border_focus c.opacity = 1.0 end)
-
-client.add_signal("unfocus", function(c) c.border_color = beautiful.border_normal c.opacity = 0.7 end)
+client.add_signal("focus", function(c) c.border_color = beautiful.border_focus end)
+client.add_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
 -- }}}
---#####################################
---############ Autostart ##############
---#####################################
-
--- FUNCTION
-function run_once(prg,arg_string,screen)
-    if not prg then
-        do return nil end
-    end
-    if not arg_string then 
-        awful.util.spawn_with_shell("pgrep -f -u $USER -x " .. prg .. " || (" .. prg .. ")",screen)
-    else
-        awful.util.spawn_with_shell("pgrep -f -u $USER -x " .. prg .. " || (" .. prg .. " " .. arg_string .. ")",screen)
-    end
-end
--- FUNCTION ENDE
--- ### APPS ###
-run_once("xscreensaver","-no-splash")
-run_once("pidgin")
-run_once("firefox-bin")
-run_once("firefox")
-run_once("evolution")
-run_once("keepassx")
-run_once("deadbeef")
-run_once("thunar")
---run_once("blueman-applet")
-os.execute("nm-applet --sm-disable &")
-
---#####################################
---######ENDE## Autostart ##ENDE########
---#####################################
-

@@ -7,7 +7,7 @@ require("awful")
 require("naughty")
 
 confdir = awful.util.getdir("config")
-local rc, err = loadfile(confdir .. "/rc_rootman.lua");
+local rc, err = loadfile(confdir .. "/awesome.lua");
 if rc then
     rc, err = pcall(rc);
     if rc then
@@ -22,3 +22,5 @@ for s = 1,screen.count() do
 end
 
 naughty.notify{text="Awesome crashed during startup on " .. os.date("%d%/%m/%Y %T:\n\n") .. err .. "\n", timeout = 0}
+
+

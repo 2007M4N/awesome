@@ -4,21 +4,21 @@
 
 theme = {}
 
-theme.font          = "terminus 8"
+theme.font          = "sans 8"
 
-theme.bg_normal     = "#252525"
-theme.bg_focus      = "#252525"
-theme.bg_urgent     = "#333333"
-theme.bg_minimize   = "#33ff00"
+theme.bg_normal     = "#222222"
+theme.bg_focus      = "#535d6c"
+theme.bg_urgent     = "#ff0000"
+theme.bg_minimize   = "#444444"
 
-theme.fg_normal     = "#aaaaaa"
-theme.fg_focus      = "#cc0000"
-theme.fg_urgent     = "#333333"
-theme.fg_minimize   = "#000000"
+theme.fg_normal     = "#00FF00"
+theme.fg_focus      = "#00FF00"
+theme.fg_urgent     = "#ffffff"
+theme.fg_minimize   = "#ffffff"
 
-theme.border_width  = "2"
-theme.border_normal = "#252525"
-theme.border_focus  = "#252525"
+theme.border_width  = "1"
+theme.border_normal = "#000000"
+theme.border_focus  = "#535d6c"
 theme.border_marked = "#91231c"
 
 -- There are other variable sets
@@ -32,7 +32,6 @@ theme.border_marked = "#91231c"
 --theme.taglist_bg_focus = "#ff0000"
 
 -- Display the taglist squares
-theme.taglist_squares = true
 theme.taglist_squares_sel   = "/usr/share/awesome/themes/default/taglist/squarefw.png"
 theme.taglist_squares_unsel = "/usr/share/awesome/themes/default/taglist/squarew.png"
 
@@ -41,13 +40,9 @@ theme.tasklist_floating_icon = "/usr/share/awesome/themes/default/tasklist/float
 -- Variables set for theming the menu:
 -- menu_[bg|fg]_[normal|focus]
 -- menu_[border_color|border_width]
-theme.menu_submenu_icon = "[PATH TO ICON]"
-theme.menu_height = "20"
-theme.menu_width  = "200"
-theme.menu_border_color = "#990000"
-theme.client_color_bg = "#252525"
-
-
+theme.menu_submenu_icon = "/usr/share/awesome/themes/default/submenu.png"
+theme.menu_height = "15"
+theme.menu_width  = "150"
 
 -- You can add as many variables as
 -- you wish and access them by using
@@ -79,7 +74,7 @@ theme.titlebar_maximized_button_normal_active = "/usr/share/awesome/themes/defau
 theme.titlebar_maximized_button_focus_active  = "/usr/share/awesome/themes/default/titlebar/maximized_focus_active.png"
 
 -- You can use your own command to set your wallpaper
-theme.wallpaper_cmd = { "awsetbg -f [PATH TO PICTURE]" }
+-- theme.wallpaper_cmd = { "awsetbg /usr/share/awesome/themes/default/background.png" }
 
 -- You can use your own layout icons like this:
 theme.layout_fairh = "/usr/share/awesome/themes/default/layouts/fairhw.png"
@@ -95,7 +90,7 @@ theme.layout_tiletop = "/usr/share/awesome/themes/default/layouts/tiletopw.png"
 theme.layout_spiral  = "/usr/share/awesome/themes/default/layouts/spiralw.png"
 theme.layout_dwindle = "/usr/share/awesome/themes/default/layouts/dwindlew.png"
 
-theme.awesome_icon = "PATH TO ICON"
+theme.awesome_icon = "/usr/share/awesome/icons/awesome16.png"
 
 return theme
 -- vim: filetype=lua:expandtab:shiftwidth=4:tabstop=8:softtabstop=4:encoding=utf-8:textwidth=80
