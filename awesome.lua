@@ -1,7 +1,7 @@
 ----------------------------------------------
 -- awesome.lua - main config of my window manager
 -- version: v3.4.9 (Smack)
--- Build: Mar 26 2011 21:52:27 for x86_64 by gcc version 4.5.2 (rootman@rootman-lpt)
+-- Build: Mar 26 2011 21:52:27 for x86_64 by gcc version 4.5.2 (rootman@ivirtualkitchen)
 -- D-Bus support: x
 -- os: Arch Linux 2.6.37-ARCH  x68_64
 -- cpu: Intel Pentium Dual Merom CPU T7200 2.00GHz

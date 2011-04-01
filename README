@@ -9,39 +9,42 @@ autostart application with runonce,
 integrated shutdown menu,
 randowm wallpaper effect,
 different layout setup for each tag,
+split the rc.lua into single files
+added some programms to the menu
 
 Widgets
 =======
 Network usage widget,
-Memory widget,
+Memory widget, in %
 Acpitool based battery widget,
-Cpu widget,
+Cpu widget, in %
 
 Requirements
 ============
 xscreensaver
 slock
 acpitool
-
+pm-utils
+habak
 Awsome version
 ==============
-awesome v3.4.3 (Engines)
- - Build: Feb  2 2010 06:11:19 for x86_64 by gcc version 4.4.3 (buildd@yellow)
+awesome v3.4.9 (Smack)
+ - Build: Mar 26 2011 21:52:27 for x86_64 by gcc version 4.5.2 (rootman@virtualkitchen)
  - D-Bus support: x
 
 Theme
 =====
-default
+rootman
+ - only modified some font colors & deactivated Wallpaper
 
 Other Files
 ===========
 
 Notes
 ====
-rc.lua: The Failsafe load, try to load rootman_.lua else load default config
+rc.lua: The Failsafe load, try to load awesome.lua else load default config
 
 Todo & Errors
 =============
 xcompmgr is disabled, because of prblems with the random wallpaper
-graphical CPU widget is disabled because of problems with multi screen
 Random wallpapers don't work with multible screens
