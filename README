@@ -1,7 +1,7 @@
 About
 =====
 
-This is the rc.lua my main config script for the awesome wm
+This are my lua files for the awesome window manager Awesome ;-)
 
 Features
 ========
@@ -14,10 +14,10 @@ added some programms to the menu
 
 Widgets
 =======
-Network usage widget,
-Memory widget, in %
-Acpitool based battery widget,
-Cpu widget, in %
+Network usage widget + Ascii arrows,
+Memory widget, in % + Icon
+Acpitool based battery widget + icon,
+Cpu widget, in % + icon
 
 Requirements
 ============
@@ -35,7 +35,12 @@ awesome v3.4.9 (Smack)
 Theme
 =====
 rootman
- - only modified some font colors & deactivated Wallpaper
+ - modified some font colors (main color is mostly green #00ff00
+ - deactivated Wallpaper
+ - added Icons
+  - CPU
+  - Mem
+  - Batterie
 
 Other Files
 ===========
@@ -46,5 +51,11 @@ rc.lua: The Failsafe load, try to load awesome.lua else load default config
 
 Todo & Errors
 =============
-xcompmgr is disabled, because of prblems with the random wallpaper
-Random wallpapers don't work with multible screens
+ - xcompmgr is disabled, because of prblems with the random wallpaper
+ - Random wallpapers don't work with multible screens
+
+ - change font settings in netwidget
+ - change independend icon for battery widget
+ - add menu for changing different wallpaper groups
+ - independent color settings for different states of the CPU MEM and Netwidget
+ - ad widget for CPU scaling XOR energy saving options
