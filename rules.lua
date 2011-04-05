@@ -8,6 +8,8 @@ awful.rules.rules = {
                      border_color = beautiful.border_normal,
                      focus = true,
                      keys = clientkeys,
+		     maximized_vertical   = false,
+		     maximized_horizontal = false,
                      buttons = clientbuttons } },
     { rule = { class = "MPlayer" },
       properties = { floating = true } },
@@ -22,6 +24,8 @@ awful.rules.rules = {
           properties = { tag = tags[1][8] } },
   { rule = { class = "Pidgin" },
           properties = { tag = tags[1][9] } },
+  { rule = { class = "XTerm" },
+          properties = { tag = tags[1][3] } },
 --  { rule = { class = "Namoroka" },
  --         properties = { tag = tags[1][2] } },
         -- spezial rules for Transparency
@@ -30,7 +34,11 @@ awful.rules.rules = {
 
  -- {rule = {class = "Mplayer"},
    --      properties = {opacity = 1} },
-
+	-- Controll Titlebars
+	{ rule = { class = "Gimp" },
+		callback = awful.titlebar.add },
+	{ rule = { class = "Keepassx" },
+		callback = awful.titlebar.add },
 }
 -- }}}
 return rules

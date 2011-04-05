@@ -44,7 +44,12 @@ theme.menu_submenu_icon = "/usr/share/awesome/themes/default/submenu.png"
 theme.menu_height = "15"
 theme.menu_width  = "150"
 
--- You can add as many variables as
+--Icons for widgets
+ theme.widget_cpu = "/home/rootman/.config/awesome/themes/rootman/cpu.png"
+ theme.widget_bat = "/usr/share/icons/gnome/16x16/devices/battery.png"
+theme.widget_mem = "/home/rootman/.config/awesome/themes/rootman/mem.png"
+
+---- You can add as many variables as
 -- you wish and access them by using
 -- beautiful.variable in your rc.lua
 --theme.bg_widget = "#cc0000"

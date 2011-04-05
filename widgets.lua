@@ -1,17 +1,24 @@
 widgets = {}
 
 -- {{{ Wibox WIDGETS
+-- Icons
+	cpuicon = widget({ type = "imagebox" })
+	cpuicon.image = image(beautiful.widget_cpu)
+ 	memicon = widget({ type = "imagebox" })
+	memicon.image = image(beautiful.widget_mem)
+	baticon = widget({ type = "imagebox" })
+	baticon.image = image(beautiful.widget_bat)
 
 -- Network usage widget
 --Initialize widget
 netwidget = widget({ type = "textbox" })
 -- Register widget
-vicious.register(netwidget, vicious.widgets.net, '<span color="#CC9393">${wlan0 down_kb}</span> <span color="#7F9F7F">${wlan0 up_kb}</span>', 3)
+vicious.register(netwidget, vicious.widgets.net, '<span color="#CC9393">&#8595;${wlan0 down_kb}</span> <span color="#7F9F7F">&#8593;${wlan0 up_kb}</span>', 3)
 
 -- Memory widget
 memwidget = widget({ type = "textbox" })
 -- Register widget
-vicious.register(memwidget, vicious.widgets.mem, '<span color="#00FF00">Mem=></span><span color="#FF0000">$1%</span>', 13)
+vicious.register(memwidget, vicious.widgets.mem, '<span color="#FF0000">$1% </span>', 13)
 
 -- { Acpitool-based battery widget
 mybattmon = widget({ type = "textbox", name = "mybattmon", align = "right" })
@@ -31,10 +38,10 @@ discharging="<span color=\"#77CC77\">"
 else --charging
 discharging="<span color=\"#CCCC77\">"
 end
-        if battery_num and battery_load and time_rem then
-            table.insert(output,discharging.."BAT#"..battery_num.." "..battery_load.."%% "..time_rem.."</span>")
-        elseif battery_num and battery_load then --remaining time unavailable
-            table.insert(output,discharging.."BAT#"..battery_num.." "..battery_load.."%%</span>")
+        if battery_load and time_rem then
+            table.insert(output,discharging..""..battery_load.."% "..time_rem.."</span>")
+        elseif battery_load then --remaining time unavailable
+            table.insert(output,discharging..""..battery_load.."%</span>")
         end --even more data unavailable: we might be getting an unexpected output format, so let's just skip this line.
         line=fd:read() --read next line
     end
@@ -62,7 +69,7 @@ my_battmon_timer:start()
 -- text CPU Widget
 cpuwidget = widget({ type = "textbox" })
 -- Register widget
-vicious.register(cpuwidget, vicious.widgets.cpu, '<span color="#00FF00">CPU=></span><span color="#FF0000">$1%</span>')
+vicious.register(cpuwidget, vicious.widgets.cpu, '<span color="#FF0000">$1%</span>')
 
 --Seperators Widget
 seperator = widget({ type = "textbox" })
@@ -144,17 +151,20 @@ for s = 1, screen.count() do
         },
         mylayoutbox[s],
         mytextclock,
-mybattmon,
-seperator,
-netwidget,
-seperator,
-cpuwidget,
-seperator,
-memwidget,
-seperator,
+	mybattmon,
+	baticon,
+	seperator,
+	netwidget,
+	seperator,
+	cpuwidget,
+	cpuicon,
+	memwidget,
+	memicon,
+	seperator,
         s == 1 and mysystray or nil,
+	seperator,
         mytasklist[s],
-        layout = awful.widget.layout.horizontal.rightleft
+	layout = awful.widget.layout.horizontal.rightleft
     }
 end
 -- }}}

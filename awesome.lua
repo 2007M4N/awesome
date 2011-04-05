@@ -20,7 +20,6 @@ require("naughty")
 require ("vicious")
 
 --{{{ Autostart Daemons
-	
 --}}}
 --
 -- {{{ Variable definitions
