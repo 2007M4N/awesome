@@ -19,6 +19,8 @@ awful.rules.rules = {
       properties = { floating = true } },
     { rule = { class = "Keepassx" },
       properties = { floating = true } },
+    { rule = { class = "Proxmark3" },
+      properties = { floating = true } },
     -- Set Firefox to always map on tags number 2 of screen 1.
   { rule = { class = "Evolution" },
           properties = { tag = tags[1][8] } },

@@ -6,16 +6,16 @@ wallpaper = {}
  math.randomseed( os.time())
  for i=1,1000 do tmp=math.random(0,1000) end
  x = 0
+
 -- Change Wallpaper randomly after time:
 -- setup the timer
  mytimer = timer { timeout = x }
 mytimer:add_signal("timeout", function()
 
 -- -- tell awsetbg to randomly choose a wallpaper from your wallpaper directory
--- os.execute("awsetbg -f -R /usr/share/wallpapers/1280&")
-os.execute ( "habak -ms -hi /usr/share/wallpapers/1280" )
-
--- os.execute("awsetbg -f /usr/share/wallpapers/25_1280x1024.jpg")
+ os.execute("awsetbg -f -R /usr/share/wallpapers/1280&", "awsetbg -f -R /usr/share/wallpapers/1280&" )
+--theme.wallpaper_cmd = { "awsetbg /usr/share/awesome/themes/default/background.png",
+--			"awsetbg /usr/share/awesome/themes/default/background.png" }
   -- stop the timer (we don't need multiple instances running at the same time)
  mytimer:stop()
   -- define the interval in which the next wallpaper change should occur in seconds

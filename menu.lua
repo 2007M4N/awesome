@@ -1,5 +1,4 @@
 menu = {}
-
 -- {{{ Menu
 myartmenu = {
 { "GIMP", "gimp" },
@@ -39,7 +38,10 @@ mysystem = {
 { "Terminal", terminal }
 }
 
-
+myscreen = {
+	{ "work", "/home/rootman/scripts/xrandr_work.sh" },
+	{ "single", "/home/rootman/scripts/xrandr_single.sh" }
+}
 
 myshutdownmenu = {
 { "Shutdown", "gksudo halt" },
@@ -62,14 +64,15 @@ mymainmenu = awful.menu({ items = { { "awesome", myawesomemenu, beautiful.awesom
      				    { "Communication", mycomm },
    			            { "Games", mygames },
        				    { "SYSTEM", mysystem },
+				    { "Screen", myscreen },
 				    { "open terminal", terminal },
 				    { "shutdown", myshutdownmenu }
                                   }
                         })
 
 
-mylauncher = awful.widget.launcher({ image = image(beautiful.awesome_icon),
-                                     menu = mymainmenu })
+ mylauncher = awful.widget.launcher({ image = image(beautiful.awesome_icon),
+                                   menu = mymainmenu })
 -- }}}
 
 return menu
