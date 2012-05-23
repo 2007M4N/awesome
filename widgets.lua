@@ -9,10 +9,15 @@ widgets = {}
 	baticon = widget({ type = "imagebox" })
 	baticon.image = image(beautiful.widget_bat)
 
+-- Register widget
+
 -- Network usage widget
 --Initialize widget
 netwidget = widget({ type = "textbox" })
 -- Register widget
+--LAN
+--vicious.register(netwidget, vicious.widgets.net, '<span color="#CC9393">&#8595;${eth0 down_kb}</span> <span color="#7F9F7F">&#8593;${eth0 up_kb}</span>', 3)
+--WLAN
 vicious.register(netwidget, vicious.widgets.net, '<span color="#CC9393">&#8595;${wlan0 down_kb}</span> <span color="#7F9F7F">&#8593;${wlan0 up_kb}</span>', 3)
 
 -- Memory widget
@@ -45,13 +50,13 @@ end
         end --even more data unavailable: we might be getting an unexpected output format, so let's just skip this line.
         line=fd:read() --read next line
     end
-    return table.concat(output," ")
+  return table.concat(output," ")
 -- FIXME: better separation for several batteries. maybe a pipe?
 end
 mybattmon.text = " " .. battery_status() .. " "
 my_battmon_timer=timer({timeout=30})
 my_battmon_timer:add_signal("timeout", function()
-    --mytextbox.text = " " .. os.date() .. " "
+  mytextbox.text = " " .. os.date() .. " "
     mybattmon.text = " " .. battery_status() .. " "
 end)
 my_battmon_timer:start()
@@ -59,7 +64,7 @@ my_battmon_timer:start()
 
 --graphical CPU Widget
 -- Initialize widget
--- cpuwidget = awful.widget.graph()
+--- cpuwidget = awful.widget.graph()
 -- Graph properties
 -- cpuwidget:set_width(50)
 -- cpuwidget:set_background_color("#494B4F")
@@ -153,6 +158,7 @@ for s = 1, screen.count() do
         mytextclock,
 	mybattmon,
 	baticon,
+--	batmon,
 	seperator,
 	netwidget,
 	seperator,
