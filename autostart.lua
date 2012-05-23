@@ -16,10 +16,9 @@ end
 -- wich Programms should be started
 run_once("xscreensaver","-no-splash")
 run_once("pidgin",nil,1)
-run_once("firefox-bin")
-run_once("evolution")
+run_once("spicebird")
 -- run_once("blueman-applet")
-run_once("nm-applet")
+-- run_once("wicid-client")
 run_once("keepassx")
 -- }}}
 return autostart
