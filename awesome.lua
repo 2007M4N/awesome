@@ -18,7 +18,6 @@ require("beautiful")
 require("naughty")
 -- Notification libary
 require ("vicious")
-
 --{{{ Autostart Daemons
 --}}}
 --
@@ -61,6 +60,6 @@ widgets = dofile(awful.util.getdir("config").."/widgets.lua")
 bindings = dofile(awful.util.getdir("config").."/bindings.lua")
 rules = dofile(awful.util.getdir("config").."/rules.lua")
 autostart = dofile(awful.util.getdir("config").."/autostart.lua")
-wallpaper = dofile(awful.util.getdir("config").."/wallpaper.lua")
+--wallpaper = dofile(awful.util.getdir("config").."/wallpaper.lua")
 signals = dofile(awful.util.getdir("config").."/signals.lua")
 --}}}
