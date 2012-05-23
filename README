@@ -7,7 +7,7 @@ Features
 ========
 autostart application with runonce,
 integrated shutdown menu,
-randowm wallpaper effect,
+-- randowm wallpaper effect, (disabled)
 different layout setup for each tag,
 split the rc.lua into single files
 added some programms to the menu
@@ -28,15 +28,14 @@ pm-utils
 habak
 Awsome version
 ==============
-awesome v3.4.9 (Smack)
- - Build: Mar 26 2011 21:52:27 for x86_64 by gcc version 4.5.2 (rootman@virtualkitchen)
- - D-Bus support: x
+ awesome v3.4.10 (Exploder)
+ - Build: Sep 16 2011 15:00:51 for x86_64 by gcc version 4.6.1 (rootman@rootman-lpt)
+ - D-Bus support: ✔
 
 Theme
 =====
 rootman
- - modified some font colors (main color is mostly green #00ff00
- - deactivated Wallpaper
+ - modified some font colors (main color is mostly green #00ff00)
  - added Icons
   - CPU
   - Mem
@@ -59,3 +58,4 @@ Todo & Errors
  - add menu for changing different wallpaper groups
  - independent color settings for different states of the CPU MEM and Netwidget
  - ad widget for CPU scaling XOR energy saving options
+ - Netwidget switch between wlan and lan
