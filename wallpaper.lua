@@ -13,7 +13,8 @@ wallpaper = {}
 mytimer:add_signal("timeout", function()
 
 -- -- tell awsetbg to randomly choose a wallpaper from your wallpaper directory
- os.execute("awsetbg -f -R /usr/share/wallpapers/1280&" )
+ os.execute("awsetbg -f -R /usr/share/wallpapers/1280_all&" )
+-- os.execute("awsetbg -f -R /usr/share/wallpapers/censored&" )
 --theme.wallpaper_cmd = { "awsetbg /usr/share/awesome/themes/default/background.png",
 --			"awsetbg /usr/share/awesome/themes/default/background.png" }
   -- stop the timer (we don't need multiple instances running at the same time)
