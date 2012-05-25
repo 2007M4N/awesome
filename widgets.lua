@@ -16,14 +16,14 @@ widgets = {}
 netwidget = widget({ type = "textbox" })
 -- Register widget
 --LAN
---vicious.register(netwidget, vicious.widgets.net, '<span color="#CC9393">&#8595;${eth0 down_kb}</span> <span color="#7F9F7F">&#8593;${eth0 up_kb}</span>', 3)
+--vicious.register(netwidget, vicious.widgets.net, '<span color="#FF0000">&#8595;${eth0 down_kb}</span> <span color="#00FF00">&#8593;${eth0 up_kb}</span>', 3)
 --WLAN
-vicious.register(netwidget, vicious.widgets.net, '<span color="#CC9393">&#8595;${wlan0 down_kb}</span> <span color="#7F9F7F">&#8593;${wlan0 up_kb}</span>', 3)
+vicious.register(netwidget, vicious.widgets.net, '<span color="#FF0000">&#8595;${wlan0 down_kb}</span> <span color="#00FF00">&#8593;${wlan0 up_kb}</span>', 3)
 
 -- Memory widget
 memwidget = widget({ type = "textbox" })
 -- Register widget
-vicious.register(memwidget, vicious.widgets.mem, '<span color="#FF0000">$1% </span>', 13)
+vicious.register(memwidget, vicious.widgets.mem, '<span color="#00FF00">$1% </span>', 13)
 
 -- { Acpitool-based battery widget
 mybattmon = widget({ type = "textbox", name = "mybattmon", align = "right" })
@@ -74,7 +74,7 @@ my_battmon_timer:start()
 -- text CPU Widget
 cpuwidget = widget({ type = "textbox" })
 -- Register widget
-vicious.register(cpuwidget, vicious.widgets.cpu, '<span color="#FF0000">$1%</span>')
+vicious.register(cpuwidget, vicious.widgets.cpu, '<span color="#00FF00">$1%</span>')
 
 --Seperators Widget
 seperator = widget({ type = "textbox" })
